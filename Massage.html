@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat UI with Send & Mic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .scrollbar-thin::-webkit-scrollbar {
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #a0aec0;
+      border-radius: 9999px;
+    }
+    ::placeholder {
+      color: #9ca3af;
+    }
+    .msg-bubble {
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <section class="w-full h-screen max-w-full bg-white flex flex-col rounded-none shadow-none">
+    <!-- Header -->
+    <header class="bg-green-200 rounded-t-2xl flex items-center justify-between p-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-neutral-800"></div>
+        <div>
+          <h1 class="font-bold text-lg text-neutral-900 select-text">Pramod lal singh</h1>
+          <p class="text-neutral-600 text-sm select-text">Active 2 hr ago</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat Messages -->
+    <main id="chat-messages" class="flex-1 p-6 overflow-y-auto scrollbar-thin bg-white space-y-4">
+      <div class="max-w-xs bg-gray-200 rounded-xl p-3 text-gray-600">Hello! How can I help you?</div>
+    </main>
+
+    <!-- Message input area -->
+    <footer class="bg-white rounded-b-2xl border-t border-green-300 p-4 flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-gray-300 flex-shrink-0"></div>
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Message....."
+        class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <button id="micBtn" class="text-gray-600 hover:text-green-700 transition p-2" title="Speak">
+        🎤
+      </button>
+      <button id="sendBtn" class="text-white bg-green-500 hover:bg-green-600 rounded-full px-4 py-2 font-medium transition">
+        Send
+      </button>
+    </footer>
+  </section>
+
+  <script>
+    const sendBtn = document.getElementById('sendBtn');
+    const input = document.getElementById('messageInput');
+    const chatMessages = document.getElementById('chat-messages');
+    const micBtn = document.getElementById('micBtn');
+
+    // Send message functionality
+    sendBtn.addEventListener('click', () => {
+      const msg = input.value.trim();
+      if (msg !== '') {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'ml-auto msg-bubble bg-green-200 text-green-900 rounded-xl p-3 select-text';
+        msgDiv.textContent = msg;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        input.value = '';
+      }
+    });
+
+    // Enter key to send
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+
+    // Voice recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-IN';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      micBtn.addEventListener('click', () => {
+        recognition.start();
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        input.value = transcript;
+      };
+
+      recognition.onerror = (event) => {
+        alert('Mic error: ' + event.error);
+      };
+    } else {
+      micBtn.disabled = true;
+      micBtn.title = 'Speech recognition not supported in your browser';
+    }
+  </script>
+</body>
+</html>

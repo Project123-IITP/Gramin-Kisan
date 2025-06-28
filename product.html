@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Organic Basmati Rice Product Detail</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Custom green colors */
+  .btn-green {
+    background-color: #32b02b;
+    color: #ffffff;
+  }
+  .btn-green:hover {
+    background-color: #279823;
+  }
+  .btn-green-light {
+    background-color: #ecf7ef;
+    color: #2c6a17;
+  }
+  .btn-green-light:hover {
+    background-color: #d2ead2;
+  }
+  /* Rating stars container */
+  .rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+  /* Progress bar backgrounds */
+  .progress-bar-bg {
+    background-color: #d9f1d9;
+  }
+  /* Progress bar fill */
+  .progress-bar-fill {
+    background-color: #32b02b;
+  }
+  /* Rating star shape using svg */
+  .star-filled {
+    width: 16px;
+    height: 16px;
+    fill: #32b02b;
+  }
+  /* Truncate multi-line text on crop description */
+  .crop-desc {
+    text-align: justify;
+    line-height: 1.5;
+  }
+  /* Image cards */
+  .product-thumb img {
+    border-radius: 0.375rem;
+    box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+  <main class="max-w-6xl mx-auto p-6">
+    <section class="bg-white rounded-lg shadow-md overflow-hidden">
+      <!-- Image Hero -->
+      <div>
+        <img 
+          src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c981719b-c129-4eb9-92a5-14cbff6212b9.png" 
+          alt="Wooden spoon filled with raw white Basmati rice on dark matte surface with rice grains scattered beside and fresh green rice plant stalks" 
+          class="w-full object-cover h-64 md:h-80"
+          onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c7c9b074-df95-4168-8eef-1de8cfcc64b5.png';"
+        />
+      </div>
+      <!-- Content container -->
+      <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Left: Product title, actions, farmer info, crop description -->
+        <div class="md:col-span-2 space-y-6">
+          <div>
+            <h1 class="text-2xl font-semibold mb-1">Organic Basmati Rice</h1>
+            <p class="text-gray-700 mb-4 text-lg">80rs/kg</p>
+            <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+              <button class="btn-green py-3 px-8 rounded-lg font-semibold shadow-sm transition-colors duration-200 w-full sm:w-auto">Add to Cart</button>
+              <a href="Massage.html" class="w-full sm:w-auto inline-block">
+  <button class="btn-green-light py-3 px-8 rounded-lg font-semibold shadow-sm w-full sm:w-auto">
+    Chat Now
+  </button>
+</a>
+            </div>
+          </div>
+          <section>
+            <h2 class="text-lg font-semibold mb-3">Farmer Info</h2>
+            <div class="flex items-center space-x-4 mb-4">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/240fe163-9c21-418e-95c5-b77d495c68e2.png" alt="Portrait of Warish Ali, a Ventiral Farmer, smiling with neutral background" class="w-16 h-16 rounded-full object-cover shadow-md" onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/79d4e777-056a-499c-b8b3-d69d5a1f3d93.png';" />
+              <div>
+                <p class="font-semibold">Warish Ali</p>
+                <p class="text-gray-600 text-sm">Ventiral Farmer</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-2 bg-green-600 text-white rounded-md py-2 px-3 shadow cursor-default select-none">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a7 7 0 017 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 017-7z" />
+                </svg>
+                <span class="font-semibold text-sm">Farm Location</span>
+              </div>
+              <div class="text-gray-700 font-medium text-sm">12 mlcs away</div>
+              <button class="btn-green py-1 px-4 rounded-md font-semibold shadow-sm hover:bg-green-700 transition-colors">Contact</button>
+            </div>
+          </section>
+          <section>
+            <h2 class="text-lg font-semibold mb-3">Crop Description</h2>
+            <p class="crop-desc max-w-prose text-gray-700 text-sm leading-relaxed">
+              Harveated on July its, 2024. Es implteined delivery-Ric organically. In entimuon 8gcrept rice is grown organicaly in the fimtle fiolds of Califorma, known for its long grains, aromatic fragrance, andelicate flaxor. Perfect for pilots, Biryanis, and everyday meals.
+            </p>
+          </section>
+        </div>
+        <!-- Right: Ratings, additional info, related products -->
+        <div class="space-y-8">
+          <section class="">
+            <div class="flex items-center gap-6 mb-4">
+              <div class="text-4xl font-extrabold leading-tight text-green-700 select-none">4.5</div>
+              <div>
+                <div class="rating-stars mb-1" aria-label="Overall rating 4.5 out of 5 stars">
+                  <svg class="star-filled" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10 1.5 12.59 7.21 18.76 7.88 13.91 12.23 15.18 18.37 10 15.4 4.82 18.37 6.09 12.23 1.24 7.88 7.41 7.21"/></svg>
+                  <svg class="star-filled" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10 1.5 12.59 7.21 18.76 7.88 13.91 12.23 15.18 18.37 10 15.4 4.82 18.37 6.09 12.23 1.24 7.88 7.41 7.21"/></svg>
+                  <svg class="star-filled" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10 1.5 12.59 7.21 18.76 7.88 13.91 12.23 15.18 18.37 10 15.4 4.82 18.37 6.09 12.23 1.24 7.88 7.41 7.21"/></svg>
+                  <svg class="star-filled" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10 1.5 12.59 7.21 18.76 7.88 13.91 12.23 15.18 18.37 10 15.4 4.82 18.37 6.09 12.23 1.24 7.88 7.41 7.21"/></svg>
+                  <svg class="star-filled" style="opacity:0.5" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10 1.5 12.59 7.21 18.76 7.88 13.91 12.23 15.18 18.37 10 15.4 4.82 18.37 6.09 12.23 1.24 7.88 7.41 7.21"/></svg>
+                </div>
+                <p class="text-xs text-gray-600 select-none">120 reviews</p>
+              </div>
+            </div>
+            <!-- Rating breakdown -->
+            <dl class="space-y-3 text-gray-700 text-sm select-none">
+              <div class="flex items-center gap-2">
+                <dt class="w-6 font-semibold">5</dt>
+                <progress class="progress-bar-fill rounded h-3 flex-1" max="100" value="50" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></progress>
+                <dd class="w-10 text-right text-xs">50%</dd>
+              </div>
+              <div class="flex items-center gap-2">
+                <dt class="w-6 font-semibold">4</dt>
+                <progress class="progress-bar-fill rounded h-3 flex-1" max="100" value="30" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></progress>
+                <dd class="w-10 text-right text-xs">30%</dd>
+              </div>
+              <div class="flex items-center gap-2">
+                <dt class="w-6 font-semibold">3</dt>
+                <progress class="progress-bar-fill rounded h-3 flex-1" max="100" value="10" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></progress>
+                <dd class="w-10 text-right text-xs">10%</dd>
+              </div>
+              <div class="flex items-center gap-2">
+                <dt class="w-6 font-semibold">2</dt>
+                <progress class="progress-bar-fill rounded h-3 flex-1" max="100" value="5" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></progress>
+                <dd class="w-10 text-right text-xs">5%</dd>
+              </div>
+              <div class="flex items-center gap-2">
+                <dt class="w-6 font-semibold">1</dt>
+                <progress class="progress-bar-fill rounded h-3 flex-1" max="100" value="5" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></progress>
+                <dd class="w-10 text-right text-xs">5%</dd>
+              </div>
+            </dl>
+          </section>
+          <section>
+            <h2 class="text-lg font-semibold mb-4 select-none">Additional Info</h2>
+            <div class="grid grid-cols-2 gap-6 text-gray-800 text-sm">
+              <div>
+                <p class="font-semibold mb-1 select-none">Crop Type</p>
+                <p class="select-text">Long Grain</p>
+              </div>
+              <div>
+                <p class="font-semibold mb-1 select-none">Usage</p>
+                <p class="select-text">Pilats, Biryanis, Everyday Meais</p>
+              </div>
+              <div>
+                <p class="font-semibold mb-1 select-none">Storage</p>
+                <p class="select-text">Store in a cool, dry place</p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 class="text-lg font-semibold mb-4 select-none">Related Products</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="product-thumb">
+                <img 
+                  src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7b221907-fea5-4483-bac5-97d49d5cd88b.png" 
+                  alt="Closeup of a wooden spoon filled with organic Basmati rice grains on dark surface" 
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2a8b878f-f785-4987-ad18-dcf61456d876.png';"
+                />
+                <p class="mt-1 font-semibold text-sm text-gray-800 select-none">Organic</p>
+                <p class="text-xs text-gray-600 select-none">80rs/kg</p>
+              </div>
+              <div class="product-thumb">
+                <img 
+                  src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e603a026-c6eb-43d2-b54e-b357c456fa5f.png" 
+                  alt="Two small rustic containers filled with organic lentils on wooden surface with black background" 
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='https://placehold.co/300x120?text=No+image';"
+                />
+                <p class="mt-1 font-semibold text-sm text-gray-800 select-none">Organic Lentils</p>
+                <p class="text-xs text-gray-600 select-none">200rs/kg</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+
