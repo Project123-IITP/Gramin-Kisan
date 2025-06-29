@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chat UI with Send & Mic</title>
+  <title>Chat UI Responsive</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .scrollbar-thin::-webkit-scrollbar {
       height: 6px;
-    }
-    .scrollbar-thin::-webkit-scrollbar-track {
-      background: transparent;
+      width: 4px;
     }
     .scrollbar-thin::-webkit-scrollbar-thumb {
       background-color: #a0aec0;
@@ -25,40 +23,43 @@
     }
   </style>
 </head>
-<body>
-  <section class="w-full h-screen max-w-full bg-white flex flex-col">
-  <!-- Header -->
-  <header class="bg-green-200 flex items-center justify-between p-4">
-    <div class="flex items-center gap-4">
-      <div class="w-14 h-14 rounded-full bg-neutral-800"></div>
-      <div>
-        <h1 class="font-bold text-lg text-neutral-900 select-text">Pramod lal singh</h1>
-        <p class="text-neutral-600 text-sm select-text">Active 2 hr ago</p>
+<body class="bg-white h-screen overflow-hidden">
+  <section class="w-full h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-green-200 flex items-center justify-between p-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-neutral-800"></div>
+        <div>
+          <h1 class="font-bold text-base sm:text-lg text-neutral-900">Pramod lal singh</h1>
+          <p class="text-neutral-600 text-sm">Active 2 hr ago</p>
+        </div>
       </div>
+    </header>
+
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2 scrollbar-thin">
+      <!-- Messages appear here -->
     </div>
-  </header>
 
-  <!-- Chat Messages Area -->
-  <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin">
-    <!-- Messages will appear here -->
-  </div>
-
-  <!-- Message input area (Sticky on mobile) -->
-  <footer class="bg-white border-t border-green-300 p-4 flex items-center gap-3 sticky bottom-0">
-    <div class="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
-    <input
-      type="text"
-      id="messageInput"
-      placeholder="Message....."
-      class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
-    />
-    <button id="micBtn" class="text-gray-600 hover:text-green-700 transition p-2" title="Speak">🎤</button>
-    <button id="sendBtn" class="text-white bg-green-500 hover:bg-green-600 rounded-full px-4 py-2 font-medium transition">
-      Send
-    </button>
-  </footer>
-</section>
-
+    <!-- Footer Input Area -->
+    <footer class="bg-white border-t border-green-300 p-3 sm:p-4 flex items-center gap-2 sm:gap-3 sticky bottom-0">
+      <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-300 flex-shrink-0"></div>
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="Message....."
+        class="flex-1 border border-gray-300 rounded-full px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <button id="micBtn" class="text-xl sm:text-2xl text-gray-600 hover:text-green-700 transition p-1" title="Speak">
+        🎤
+      </button>
+      <button id="sendBtn"
+        class="text-sm sm:text-base text-white bg-green-500 hover:bg-green-600 rounded-full px-4 py-2 font-medium transition">
+        Send
+      </button>
+    </footer>
+  </section>
 
   <script>
     const sendBtn = document.getElementById('sendBtn');
@@ -66,12 +67,12 @@
     const chatMessages = document.getElementById('chat-messages');
     const micBtn = document.getElementById('micBtn');
 
-    // Send message functionality
+    // Send message
     sendBtn.addEventListener('click', () => {
       const msg = input.value.trim();
       if (msg !== '') {
         const msgDiv = document.createElement('div');
-        msgDiv.className = 'ml-auto msg-bubble bg-green-200 text-green-900 rounded-xl p-3 select-text';
+        msgDiv.className = 'ml-auto msg-bubble bg-green-200 text-green-900 rounded-xl p-3';
         msgDiv.textContent = msg;
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -79,14 +80,14 @@
       }
     });
 
-    // Enter key to send
+    // Send on Enter
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         sendBtn.click();
       }
     });
 
-    // Voice recognition
+    // Mic input
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (SpeechRecognition) {
@@ -109,7 +110,7 @@
       };
     } else {
       micBtn.disabled = true;
-      micBtn.title = 'Speech recognition not supported in your browser';
+      micBtn.title = 'Speech recognition not supported in this browser';
     }
   </script>
 </body>
