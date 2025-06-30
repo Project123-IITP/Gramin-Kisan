@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gramin Kisam Bazar - Chat UI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .chat-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+  .chat-messages::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body class="bg-green-50">
+
+<!-- Header with search -->
+<!-- Header with search -->
+<header class="flex justify-between items-center px-6 py-4 bg-white shadow-sm border-b">
+  <div class="flex items-center space-x-3">
+    <img src="Lgo.png" alt="Logo" class="w-10 h-10 rounded-full">
+    <h1 class="text-lg font-bold">Gramin Kisam Bazar</h1>
+  </div>
+  <input id="searchInput" oninput="filterChats()" type="text" placeholder="Search by name..." class="border px-4 py-2 rounded-full text-sm w-64">
+</header>
+
+
+<!-- Chat Layout -->
+<main class="flex h-[90vh] max-w-7xl mx-auto bg-white mt-4 shadow rounded-lg overflow-hidden">
+  <!-- Sidebar -->
+  <aside class="w-80 border-r overflow-y-auto" id="chatList">
+    <!-- Chat user list will be injected here -->
+  </aside>
+
+  <!-- Chat Section -->
+  <section class="flex flex-col flex-grow">
+    <header id="chatHeader" class="p-4 border-b font-semibold text-lg bg-green-100 flex justify-between items-center">
+      <span>Select a person to start chat</span>
+      <button onclick="exitChat()" class="text-red-600 text-sm">Exit Chat</button>
+    </header>
+    <div id="chatBox" class="flex-grow overflow-y-auto p-4 space-y-4 chat-messages"></div>
+    <form onsubmit="event.preventDefault(); sendMessage();" class="flex items-center border-t p-4 bg-green-50">
+      <input id="messageInput" class="flex-grow border rounded-full px-4 py-2 text-sm" type="text" placeholder="Type a message...">
+      <button class="ml-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full">Send</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  const users = [
+    { id: 1, name: "Rahul Sharma", img: "https://randomuser.me/api/portraits/men/1.jpg", messages: [
+      { from: 'them', text: "Namaste! Kya haal hai bhai?" },
+      { from: 'me', text: "Sab badhiya! Tu bata, kya chal raha hai?" },
+    ] },
+    { id: 2, name: "Priya Singh", img: "https://randomuser.me/api/portraits/women/2.jpg", messages: [
+      { from: 'them', text: "Hey Rahul! Kal ki party yaad hai?" },
+      { from: 'me', text: "Haan bilkul! Maza aa gaya tha!" },
+    ] },
+    { id: 3, name: "Amit Verma", img: "https://randomuser.me/api/portraits/men/3.jpg", messages: [
+      { from: 'them', text: "Tu gym aa raha aaj?" },
+      { from: 'me', text: "Shaam ko milte hain bro!" },
+    ] },
+    { id: 4, name: "Neha Kumari", img: "https://randomuser.me/api/portraits/women/4.jpg", messages: [
+      { from: 'them', text: "Tera project ho gaya kya?" },
+      { from: 'me', text: "Bas complete karne wala hoon!" },
+    ] },
+    { id: 5, name: "Suresh Bhai", img: "https://randomuser.me/api/portraits/men/5.jpg", messages: [ ] },
+    { id: 6, name: "Anjali Devi", img: "https://randomuser.me/api/portraits/women/6.jpg", messages: [ ] },
+    { id: 7, name: "Kishan Lal", img: "https://randomuser.me/api/portraits/men/7.jpg", messages: [ ] },
+    { id: 8, name: "Sunita Yadav", img: "https://randomuser.me/api/portraits/women/8.jpg", messages: [ ] },
+    { id: 9, name: "Ravi Patel", img: "https://randomuser.me/api/portraits/men/9.jpg", messages: [ ] },
+    { id: 10, name: "Pooja Bansal", img: "https://randomuser.me/api/portraits/women/10.jpg", messages: [ ] },
+    { id: 11, name: "Vikas Kumar", img: "https://randomuser.me/api/portraits/men/11.jpg", messages: [ ] },
+    { id: 12, name: "Meena Bharti", img: "https://randomuser.me/api/portraits/women/12.jpg", messages: [ ] },
+    { id: 13, name: "Rajesh Jha", img: "https://randomuser.me/api/portraits/men/13.jpg", messages: [ ] },
+    { id: 14, name: "Kavita Sinha", img: "https://randomuser.me/api/portraits/women/14.jpg", messages: [ ] },
+    { id: 15, name: "Manoj Yadav", img: "https://randomuser.me/api/portraits/men/15.jpg", messages: [ ] }
+  ];
+
+  let activeUser = null;
+
+  function loadUserList() {
+    const container = document.getElementById('chatList');
+    container.innerHTML = '';
+    users.forEach(user => {
+      const li = document.createElement('div');
+      li.className = 'flex items-center px-4 py-3 hover:bg-green-100 cursor-pointer border-b';
+      li.innerHTML = `
+        <img src="${user.img}" class="w-10 h-10 rounded-full mr-3 object-cover">
+        <div><p class="font-semibold">${user.name}</p></div>`;
+      li.onclick = () => openChat(user);
+      container.appendChild(li);
+    });
+  }
+
+  function openChat(user) {
+    activeUser = user;
+    document.getElementById('chatHeader').children[0].innerText = user.name;
+    const chatBox = document.getElementById('chatBox');
+    chatBox.innerHTML = '';
+    user.messages.forEach(msg => {
+      const bubble = document.createElement('div');
+      bubble.className = msg.from === 'me' ? 'text-right' : 'text-left';
+      bubble.innerHTML = `<div class="inline-block ${msg.from === 'me' ? 'bg-green-600 text-white' : 'bg-green-100'} rounded-2xl px-4 py-2 text-sm max-w-xs">${msg.text}</div>`;
+      chatBox.appendChild(bubble);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const text = input.value.trim();
+    if (!text || !activeUser) return;
+    activeUser.messages.push({ from: 'me', text });
+    openChat(activeUser);
+    input.value = '';
+  }
+
+  function filterChats() {
+    const value = document.getElementById('searchInput').value.toLowerCase();
+    const container = document.getElementById('chatList');
+    container.innerHTML = '';
+    users.filter(user => user.name.toLowerCase().includes(value)).forEach(user => {
+      const li = document.createElement('div');
+      li.className = 'flex items-center px-4 py-3 hover:bg-green-100 cursor-pointer border-b';
+      li.innerHTML = `
+        <img src="${user.img}" class="w-10 h-10 rounded-full mr-3 object-cover">
+        <div><p class="font-semibold">${user.name}</p></div>`;
+      li.onclick = () => openChat(user);
+      container.appendChild(li);
+    });
+  }
+
+  function exitChat() {
+    activeUser = null;
+    document.getElementById('chatHeader').children[0].innerText = 'Select a person to start chat';
+    document.getElementById('chatBox').innerHTML = '';
+    document.getElementById('messageInput').value = '';
+  }
+
+  loadUserList();
+</script>
+
+</body>
+</html>
+
